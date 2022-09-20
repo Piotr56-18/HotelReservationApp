@@ -1,19 +1,34 @@
 package pl.application.domain.guest;
 
+import pl.application.domain.guest.dto.GuestDTO;
+
 public class Guest {
 
-    private String firstName;
-    private String lastName;
-    private int age;
-    private Gender gender;
+    private final int id;
+    private final String firstName;
+    private final String lastName;
+    private final int age;
+    private final Gender gender;
 
-    public Guest (String firstName, String lastName, int age, Gender gender){
+    Guest(int id, String firstName, String lastName, int age, Gender gender) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.gender = gender;
     }
-    public String getInfo(){
-        return String.format("Dodano nowego gościa: %s %s (%d) %s", this.firstName, this.lastName, this.age,this.gender);
+    public GuestDTO generateDTO() {
+        return new GuestDTO(this.id, this.firstName,this.lastName,this.age,this.gender.toString());
+    }
+
+    public String getInfo() {
+        return String.format("%d %s %s (%d) (%s)", this.id, this.firstName, this.lastName, this.age, this.gender);
+    }
+    String toCSV(){
+        return String.format("%s, %s,%s,%d,%s%s",this.id, this.firstName,this.lastName,this.age,this.gender,System.getProperty("line.separator"));
+    }
+
+    public int getId() {
+        return id;
     }
 }

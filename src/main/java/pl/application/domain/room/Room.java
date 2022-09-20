@@ -1,21 +1,48 @@
 package pl.application.domain.room;
 
-public class Room {
-    private int number;
-    private BedType[] beds;
+import pl.application.domain.room.dto.RoomDTO;
 
-    public Room(int number, BedType[] bed) {
+public class Room {
+    private final int id;
+    private final int number;
+    private final BedType[] beds;
+
+    Room(int id, int number, BedType[] bed) {
+        this.id = id;
         this.number = number;
         this.beds = bed;
     }
 
     public String getInfo() {
 
-        String bedInfo = "Rodzaje łóżek w pokoju:\n";
+        StringBuilder bedInfo = new StringBuilder("Rodzaje łóżek w pokoju:\n");
         for (BedType bed : beds) {
-            bedInfo = bedInfo + "\t" + bed + "\n";
+            bedInfo.append("\t").append(bed).append("\n");
         }
 
-        return String.format("Stworzono pokój o numerze: %d %s", this.number, bedInfo);
+        return String.format("%d Numer: %d %s", this.id, this.number, bedInfo);
+    }
+    String toCSV(){
+        String[] bedsAsString = getBedsAsString();
+        String  bedTypes = String.join("#",bedsAsString);
+        return String.format("%d,%d,%s%s",this.id, this.number,bedTypes,System.getProperty("line.separator"));
+    }
+
+    private String[] getBedsAsString() {
+        String[] bedsAsString = new String[this.beds.length];
+        for (int i = 0; i < bedsAsString.length; i++) {
+            bedsAsString[i] = beds[i].toString();
+        }
+        return bedsAsString;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public RoomDTO generateDTO() {
+        String[] bedsAsString = getBedsAsString();
+        String  bedTypes = String.join(",",bedsAsString);
+        return new RoomDTO(this.id, this.number,bedTypes);
     }
 }
