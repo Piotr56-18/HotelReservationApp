@@ -1,5 +1,6 @@
 package pl.application.ui.text;
 
+import pl.application.domain.ObjectPool;
 import pl.application.domain.guest.Guest;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.reservation.Reservation;
@@ -17,9 +18,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
-    private final GuestService guestService = new GuestService();
-    private final RoomService roomService = new RoomService();
-    private final ReservationService reservationService = new ReservationService();
+    private final GuestService guestService = ObjectPool.getGuestService();
+    private final RoomService roomService = ObjectPool.getRoomService();
+    private final ReservationService reservationService = ObjectPool.getReservationService();
 
     private void readNewGuestData(Scanner scanner) {
         System.out.println("Tworzymy nowego gościa");

@@ -1,7 +1,5 @@
 package pl.application.domain.room;
 
-import pl.application.domain.guest.Gender;
-import pl.application.domain.guest.Guest;
 import pl.application.exceptions.PersistenceToFileException;
 import pl.application.util.Properties;
 
@@ -15,6 +13,13 @@ import java.util.List;
 
 public class RoomRepository {
     private final List<Room> rooms = new ArrayList<>();
+    private final static RoomRepository instance = new RoomRepository();
+
+    private RoomRepository(){};
+
+    public static RoomRepository getInstance(){
+        return instance;
+    }
 
     Room createNewRoom(int number, BedType[] bedTypes) {
         Room room = new Room(findNewId(), number, bedTypes);

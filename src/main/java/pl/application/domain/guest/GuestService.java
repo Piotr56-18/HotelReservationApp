@@ -1,12 +1,21 @@
 package pl.application.domain.guest;
 
+import pl.application.domain.ObjectPool;
 import pl.application.domain.guest.dto.GuestDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuestService {
-    private static final GuestRepository repository = new GuestRepository();
+    private final GuestRepository repository = ObjectPool.getGuestRepository();
+
+    private static final GuestService instance = new GuestService();
+
+    private GuestService(){};
+
+    public static GuestService getInstance(){
+        return instance;
+    }
 
     public Guest createNewGuest(String firstName, String lastName, int age, boolean isMale) {
         Gender gender = Gender.FEMALE;

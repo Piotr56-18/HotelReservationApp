@@ -1,10 +1,9 @@
 package pl.application.ui.gui;
-
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pl.application.domain.ObjectPool;
 import pl.application.domain.room.RoomService;
 import pl.application.domain.room.dto.RoomDTO;
 
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class RoomsTab {
     private Tab roomTab;
-    private RoomService roomService = new RoomService();
+    private RoomService roomService = ObjectPool.getRoomService();
 
     public RoomsTab(){
         TableView <RoomDTO> tableView = new TableView<>();
@@ -23,7 +22,13 @@ public class RoomsTab {
         TableColumn<RoomDTO,String> bedsColumn = new TableColumn<>("Typy łóżek");
         bedsColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
 
-        tableView.getColumns().addAll(numberColumn,bedsColumn);
+        TableColumn<RoomDTO,Integer> bedsCountColumn = new TableColumn<>("Ilość łóżek");
+        bedsCountColumn.setCellValueFactory(new PropertyValueFactory<>("bedsCount"));
+
+        TableColumn<RoomDTO,Integer> roomSizeColumn = new TableColumn<>("Rozmiar pokoju");
+        roomSizeColumn.setCellValueFactory(new PropertyValueFactory<>("roomSize"));
+
+        tableView.getColumns().addAll(numberColumn,roomSizeColumn,bedsCountColumn,bedsColumn);
 
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
         tableView.getItems().addAll(allAsDTO);

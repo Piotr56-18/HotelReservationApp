@@ -1,7 +1,4 @@
 package pl.application.ui.gui;
-
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 public class MainTabView {
@@ -10,14 +7,11 @@ public class MainTabView {
     public MainTabView(){
         this.mainTabs = new TabPane();
 
-        Tab reservationTab = new Tab("Rezerwacje", new Label("Obsługa rezerwacji"));
-        Tab guestTab = new Tab("Goście", new Label("Obsługa gości"));
-        reservationTab.setClosable(false);
-        guestTab.setClosable(false);
-
+        ReservationsTab reservationsTab = new ReservationsTab();
         RoomsTab roomsTab = new RoomsTab();
+        GuestsTab guestsTab = new GuestsTab();
 
-        this.mainTabs.getTabs().addAll(reservationTab,guestTab, roomsTab.getRoomTab());
+        this.mainTabs.getTabs().addAll(reservationsTab.getReservationTab(),guestsTab.getGuestTab(), roomsTab.getRoomTab());
     }
 
     TabPane getMainTabs() {

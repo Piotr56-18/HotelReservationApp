@@ -1,5 +1,6 @@
 package pl.application.domain.room;
 
+import pl.application.domain.ObjectPool;
 import pl.application.domain.room.dto.RoomDTO;
 import pl.application.exceptions.WrongOptionException;
 
@@ -7,7 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomService {
-    private static final RoomRepository repository = new RoomRepository();
+    private final RoomRepository repository = ObjectPool.getRoomRepository();
+
+    private final static RoomService instance = new RoomService();
+
+    private RoomService(){};
+
     public Room createNewRoom(int number, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
 
@@ -76,6 +82,10 @@ public class RoomService {
             result.add(dto);
         }
         return result;
+    }
+
+    public static RoomService getInstance() {
+        return instance;
     }
 }
 

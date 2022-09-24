@@ -1,5 +1,6 @@
 package pl.application.domain.reservation;
 
+import pl.application.domain.ObjectPool;
 import pl.application.domain.guest.Gender;
 import pl.application.domain.guest.Guest;
 import pl.application.domain.guest.GuestService;
@@ -20,8 +21,16 @@ import java.util.List;
 public class ReservationRepository {
 
     List<Reservation> reservations = new ArrayList<>();
-    RoomService roomService = new RoomService();
-    GuestService guestService = new GuestService();
+    private final RoomService roomService = ObjectPool.getRoomService();
+    private final GuestService guestService = ObjectPool.getGuestService();
+
+    private final static ReservationRepository instance = new ReservationRepository();
+
+    private ReservationRepository(){};
+
+    public static ReservationRepository getInstance(){
+        return instance;
+    }
 
     public Reservation createNewReservation(Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         Reservation reservation = new Reservation(findNewId(), room, guest, from, to);
@@ -85,5 +94,10 @@ public class ReservationRepository {
         } catch (IOException e) {
             throw new PersistenceToFileException(file.toString(), "save", "reservation data");
         }
+    }
+
+
+    public List<Reservation> getAll() {
+        return this.reservations;
     }
 }

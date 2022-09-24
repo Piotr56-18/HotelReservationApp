@@ -3,11 +3,11 @@ package pl.application.domain.guest.dto;
 import pl.application.domain.guest.Gender;
 
 public class GuestDTO {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private int age;
-    private String gender;
+    private final int id;
+    private final String firstName;
+    private final String lastName;
+    private final int age;
+    private final String gender;
 
     public GuestDTO(int id, String firstName, String lastName, int age, String gender) {
         this.id = id;

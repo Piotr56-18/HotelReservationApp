@@ -18,7 +18,11 @@ public class Guest {
         this.gender = gender;
     }
     public GuestDTO generateDTO() {
-        return new GuestDTO(this.id, this.firstName,this.lastName,this.age,this.gender.toString());
+        String gender = "Mężczyzna";
+        if(this.gender==Gender.FEMALE){
+            gender = "Kobieta";
+        }
+        return new GuestDTO(this.id, this.firstName,this.lastName,this.age,gender);
     }
 
     public String getInfo() {
@@ -30,5 +34,13 @@ public class Guest {
 
     public int getId() {
         return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

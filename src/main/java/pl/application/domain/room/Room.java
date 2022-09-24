@@ -43,6 +43,16 @@ public class Room {
     public RoomDTO generateDTO() {
         String[] bedsAsString = getBedsAsString();
         String  bedTypes = String.join(",",bedsAsString);
-        return new RoomDTO(this.id, this.number,bedTypes);
+
+        int roomSize = 0;
+        for(BedType bedType:beds){
+            roomSize+=bedType.getSize();
+        }
+
+        return new RoomDTO(this.id, this.number,bedTypes, beds.length,roomSize);
+    }
+
+    public int getnumber() {
+        return this.number;
     }
 }
