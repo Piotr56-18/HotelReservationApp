@@ -1,9 +1,13 @@
 package pl.application.ui.gui;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import pl.application.domain.ObjectPool;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.guest.dto.GuestDTO;
@@ -14,7 +18,26 @@ public class GuestsTab {
     private Tab guestTab;
     private GuestService guestService = ObjectPool.getGuestService();
 
-    public GuestsTab(){
+    public GuestsTab(Stage primaryStage){
+        TableView<GuestDTO> tableView = getGuestDTOTableView();
+
+        Button button = new Button("Dodaj nowego gościa");
+        button.setOnAction(actionEvent -> {
+            Stage stg = new Stage();
+            stg.initModality(Modality.WINDOW_MODAL);
+            stg.setScene(new AddNewGuestScene(stg,tableView).getMainScene());
+            stg.initOwner(primaryStage);
+            stg.setTitle("Dodaj nowego gościa");
+            stg.showAndWait();
+
+        });
+        VBox layout = new VBox(button, tableView);
+
+        this.guestTab = new Tab("Goście", layout);
+        this.guestTab.setClosable(false);
+    }
+
+    private TableView<GuestDTO> getGuestDTOTableView() {
         TableView<GuestDTO> tableView = new TableView<>();
 
         TableColumn<GuestDTO,String> firstNamesColumn = new TableColumn<>("Imię");
@@ -33,9 +56,7 @@ public class GuestsTab {
 
         List<GuestDTO> allAsDTO = guestService.getAllAsDTO();
         tableView.getItems().addAll(allAsDTO);
-
-        this.guestTab = new Tab("Goście", tableView);
-        this.guestTab.setClosable(false);
+        return tableView;
     }
 
     Tab getGuestTab() {

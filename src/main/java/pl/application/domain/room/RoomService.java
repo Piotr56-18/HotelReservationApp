@@ -3,6 +3,7 @@ package pl.application.domain.room;
 import pl.application.domain.ObjectPool;
 import pl.application.domain.room.dto.RoomDTO;
 import pl.application.exceptions.WrongOptionException;
+import pl.application.util.Properties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,25 @@ public class RoomService {
 
     private RoomService(){};
 
+    public Room createNewRoom(int number, List<String>  bedTypesAsString){
+        BedType[] bedTypes = new BedType[bedTypesAsString.size()];
+        for (int i = 0; i < bedTypesAsString.size(); i++) {
+
+            BedType bedType;
+
+            if (bedTypesAsString.get(i).equals(Properties.SINGLE_BED)) {
+                bedType = BedType.SINGLE;
+            } else if (bedTypesAsString.get(i).equals(Properties.DOUBLE_BED)) {
+                bedType = BedType.DOUBLE;
+            } else if (bedTypesAsString.get(i).equals(Properties.KING_SIZE)) {
+                bedType = BedType.KING_SIZE;
+            } else {
+                throw new WrongOptionException("Wrong option in selecting bed type");
+            }
+            bedTypes[i] = bedType;
+        }
+        return repository.createNewRoom(number, bedTypes);
+    }
     public Room createNewRoom(int number, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
 

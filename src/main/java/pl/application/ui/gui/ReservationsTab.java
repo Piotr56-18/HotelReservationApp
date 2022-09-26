@@ -1,23 +1,43 @@
 package pl.application.ui.gui;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import pl.application.domain.ObjectPool;
-import pl.application.domain.reservation.Reservation;
 import pl.application.domain.reservation.ReservationService;
 import pl.application.domain.reservation.dto.ReservationDTO;
-import pl.application.domain.room.dto.RoomDTO;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class ReservationsTab {
     private Tab reservationTab;
     private ReservationService reservationService = ObjectPool.getReservationService();
 
-    public ReservationsTab(){
+    public ReservationsTab(Stage primaryStage){
+        TableView<ReservationDTO> tableView = getReservationDTOTableView();
+
+        Button button = new Button("Stwórz rezerwację");
+        button.setOnAction(actionEvent -> {
+            Stage stg = new Stage();
+            stg.initModality(Modality.WINDOW_MODAL);
+            stg.setScene(new AddNewReservationScene(stg,tableView).getMainScene());
+            stg.initOwner(primaryStage);
+            stg.setTitle("Stwórz rezerwację");
+            stg.showAndWait();
+
+        });
+        VBox layout = new VBox(button, tableView);
+
+        this.reservationTab = new Tab("Rezerwacje",layout );
+        this.reservationTab.setClosable(false);
+    }
+
+    private TableView<ReservationDTO> getReservationDTOTableView() {
         TableView<ReservationDTO>tableView = new TableView<>();
 
         TableColumn<ReservationDTO, LocalDateTime> fromColumn = new TableColumn<>("Od");
@@ -35,9 +55,7 @@ public class ReservationsTab {
         tableView.getColumns().addAll(fromColumn,toColumn,roomColumn,guestColumn);
 
         tableView.getItems().addAll(reservationService.getReservationsAsDTO());
-
-        this.reservationTab = new Tab("Rezerwacje",tableView );
-        this.reservationTab.setClosable(false);
+        return tableView;
     }
 
 

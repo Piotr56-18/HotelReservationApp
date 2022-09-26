@@ -32,12 +32,20 @@ public class App extends Application {
             throw new PersistenceToFileException(Properties.DATA_DIRECTORY.toString(), "create data directory","directory");
         }
         Application.launch(args);
-      //  textUI.showSystemInfo();
-      //  textUI.showMainMenu();
+        //textUI.showSystemInfo();
+        //textUI.showMainMenu();
     }
+    @Override
     public void start(Stage primaryStage){
         PrimaryStage primary = new PrimaryStage();
         primary.initialize(primaryStage);
+    }
+    @Override
+    public void stop(){
+        System.out.println("Koniec programu. Zapis danych.");
+        guestService.saveAll();
+        roomService.saveAll();
+        reservationService.saveAll();
     }
 }
 
