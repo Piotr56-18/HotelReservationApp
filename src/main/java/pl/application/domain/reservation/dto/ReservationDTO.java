@@ -3,13 +3,13 @@ package pl.application.domain.reservation.dto;
 import java.time.LocalDateTime;
 
 public class ReservationDTO {
-    private int id;
-    private LocalDateTime from;
-    private LocalDateTime to;
-    private int roomId;
-    private int roomNumber;
-    private int guestId;
-    private String guestName;
+    private final int id;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+    private final int roomId;
+    private final int roomNumber;
+    private final int guestId;
+    private final String guestName;
 
     public ReservationDTO(int id, LocalDateTime from, LocalDateTime to, int roomId, int roomNumber, int guestId, String guestName) {
         this.id = id;

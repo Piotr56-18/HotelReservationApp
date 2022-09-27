@@ -11,7 +11,7 @@ public class GuestService {
 
     private static final GuestService instance = new GuestService();
 
-    private GuestService(){};
+    private GuestService(){}
 
     public static GuestService getInstance(){
         return instance;

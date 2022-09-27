@@ -1,7 +1,5 @@
 package pl.application.domain.guest.dto;
 
-import pl.application.domain.guest.Gender;
-
 public class GuestDTO {
     private final int id;
     private final String firstName;

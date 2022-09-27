@@ -20,7 +20,7 @@ public class ReservationService {
 
     private static final ReservationService instance = new ReservationService();
 
-    private ReservationService(){};
+    private ReservationService(){}
 
     public static ReservationService getInstance() {
         return instance;

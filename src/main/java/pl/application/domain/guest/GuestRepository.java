@@ -16,9 +16,10 @@ public class GuestRepository {
     private final List<Guest> guests = new ArrayList<>();
     private final static GuestRepository instance = new GuestRepository();
 
-    private GuestRepository(){};
+    private GuestRepository() {
+    }
 
-    public static GuestRepository getInstance(){
+    public static GuestRepository getInstance() {
         return instance;
     }
 
@@ -28,10 +29,9 @@ public class GuestRepository {
         return guest;
     }
 
-    Guest addExistingGuest(int id, String firstName, String lastName, int age, Gender gender) {
+    void addExistingGuest(int id, String firstName, String lastName, int age, Gender gender) {
         Guest guest = new Guest(id, firstName, lastName, age, gender);
         guests.add(guest);
-        return guest;
     }
 
     List<Guest> getAll() {
@@ -72,7 +72,7 @@ public class GuestRepository {
                 int id = Integer.parseInt(guestData[0]);
                 int age = Integer.parseInt(guestData[3]);
                 Gender gender = Gender.FEMALE;
-                if(guestData[4].equals(Properties.MALE)){
+                if (guestData[4].equals(Properties.MALE)) {
                     gender = Gender.MALE;
                 }
                 addExistingGuest(id, guestData[1], guestData[2], age, gender);
@@ -101,21 +101,21 @@ public class GuestRepository {
                 break;
             }
         }
-            if (guestToBeRemovedIndex > -1) {
-                this.guests.remove(guestToBeRemovedIndex);
-            } else {
-                System.out.println("Nie ma gościa o podanym indeksie");
-            }
+        if (guestToBeRemovedIndex > -1) {
+            this.guests.remove(guestToBeRemovedIndex);
+        } else {
+            System.out.println("Nie ma gościa o podanym indeksie");
         }
+    }
 
     public void edit(int id, String firstName, String lastName, int age, Gender gender) {
         this.remove(id);
-        this.addExistingGuest(id,firstName,lastName,age,gender);
+        this.addExistingGuest(id, firstName, lastName, age, gender);
     }
 
     public Guest findById(int id) {
-        for(Guest guest :this.guests){
-            if(guest.getId()==id){
+        for (Guest guest : this.guests) {
+            if (guest.getId() == id) {
                 return guest;
             }
         }

@@ -8,7 +8,7 @@ import pl.application.domain.room.RoomRepository;
 import pl.application.domain.room.RoomService;
 
 public class ObjectPool {
-    private ObjectPool(){};
+    private ObjectPool(){}
 
     public static GuestService getGuestService() {
         return GuestService.getInstance();

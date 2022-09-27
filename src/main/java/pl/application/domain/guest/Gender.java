@@ -6,7 +6,7 @@ public enum Gender {
     MALE(Properties.MALE),
     FEMALE(Properties.FEMALE);
 
-    private String asStr;
+    private final String asStr;
 
     Gender(String asStr){
         this.asStr=asStr;

@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddNewReservationScene {
-    private Scene mainScene;
-    private RoomService roomService = ObjectPool.getRoomService();
-    private GuestService guestService = ObjectPool.getGuestService();
-    private ReservationService reservationService = ObjectPool.getReservationService();
+    private final Scene mainScene;
+    private final RoomService roomService = ObjectPool.getRoomService();
+    private final GuestService guestService = ObjectPool.getGuestService();
+    private final ReservationService reservationService = ObjectPool.getReservationService();
 
     public AddNewReservationScene(Stage stg, TableView<ReservationDTO> tableView) {
 

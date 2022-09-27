@@ -1,0 +1,2 @@
+Piotr,Nowak,32,MALE
+Paweł,Kowalski,19,MALE

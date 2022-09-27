@@ -1,5 +1,4 @@
 package pl.application.ui.gui.reservations;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -9,14 +8,12 @@ import javafx.stage.Stage;
 import pl.application.domain.ObjectPool;
 import pl.application.domain.reservation.ReservationService;
 import pl.application.domain.reservation.dto.ReservationDTO;
-import pl.application.domain.room.dto.RoomDTO;
-import pl.application.ui.gui.reservations.AddNewReservationScene;
 
 import java.time.LocalDateTime;
 
 public class ReservationsTab {
-    private Tab reservationTab;
-    private ReservationService reservationService = ObjectPool.getReservationService();
+    private final Tab reservationTab;
+    private final ReservationService reservationService = ObjectPool.getReservationService();
 
     public ReservationsTab(Stage primaryStage){
         TableView<ReservationDTO> tableView = getReservationDTOTableView();
@@ -56,7 +53,7 @@ public class ReservationsTab {
         deleteColumn.setCellValueFactory(value-> new ReadOnlyObjectWrapper(value.getValue()));
 
         deleteColumn.setCellFactory(param -> new TableCell<>(){
-            Button deleteButton = new Button("Usuń");
+            final Button deleteButton = new Button("Usuń");
             @Override
             protected void updateItem(ReservationDTO value, boolean empty){
                 super.updateItem(value,empty);

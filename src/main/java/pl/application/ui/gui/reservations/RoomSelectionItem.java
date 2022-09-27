@@ -1,8 +1,8 @@
 package pl.application.ui.gui.reservations;
 
 public class RoomSelectionItem {
-    private int number;
-    private int id;
+    private final int number;
+    private final int id;
 
     public RoomSelectionItem(int number, int id) {
         this.number = number;

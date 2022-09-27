@@ -6,7 +6,7 @@ import pl.application.ui.gui.reservations.ReservationsTab;
 import pl.application.ui.gui.rooms.RoomsTab;
 
 public class MainTabView {
-    private TabPane mainTabs;
+    private final TabPane mainTabs;
 
     public MainTabView(Stage primaryStage){
         this.mainTabs = new TabPane();

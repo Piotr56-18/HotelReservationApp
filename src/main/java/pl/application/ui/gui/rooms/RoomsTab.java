@@ -14,9 +14,9 @@ import pl.application.domain.room.dto.RoomDTO;
 import java.util.List;
 
 public class RoomsTab {
-    private Tab roomTab;
-    private RoomService roomService = ObjectPool.getRoomService();
-    private Stage primaryStage;
+    private final Tab roomTab;
+    private final RoomService roomService = ObjectPool.getRoomService();
+    private final Stage primaryStage;
 
     public RoomsTab(Stage primaryStage) {
         TableView<RoomDTO> tableView = getRoomDTOTableView();
@@ -57,9 +57,9 @@ public class RoomsTab {
         deleteColumn.setCellValueFactory(value-> new ReadOnlyObjectWrapper(value.getValue()));
 
         deleteColumn.setCellFactory(param -> new TableCell<>(){
-            Button deleteButton = new Button("Usuń");
-            Button editButton = new Button("Edytuj");
-            HBox hBox = new HBox(deleteButton,editButton);
+            final Button deleteButton = new Button("Usuń");
+            final Button editButton = new Button("Edytuj");
+            final HBox hBox = new HBox(deleteButton,editButton);
 
             @Override
             protected void updateItem(RoomDTO value, boolean empty){

@@ -10,14 +10,12 @@ import javafx.stage.Stage;
 import pl.application.domain.ObjectPool;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.guest.dto.GuestDTO;
-import pl.application.ui.gui.rooms.EditRoomScene;
-
 import java.util.List;
 
 public class GuestsTab {
-    private Tab guestTab;
-    private GuestService guestService = ObjectPool.getGuestService();
-    private Stage primaryStage;
+    private final Tab guestTab;
+    private final GuestService guestService = ObjectPool.getGuestService();
+    private final Stage primaryStage;
 
     public GuestsTab(Stage primaryStage){
         TableView<GuestDTO> tableView = getGuestDTOTableView();
@@ -57,9 +55,9 @@ public class GuestsTab {
         deleteColumn.setCellValueFactory(value-> new ReadOnlyObjectWrapper(value.getValue()));
 
         deleteColumn.setCellFactory(param -> new TableCell<>(){
-            Button deleteButton = new Button("Usuń");
-            Button editButton = new Button("Edytuj");
-            HBox hBox = new HBox(deleteButton,editButton);
+            final Button deleteButton = new Button("Usuń");
+            final Button editButton = new Button("Edytuj");
+            final HBox hBox = new HBox(deleteButton,editButton);
 
             @Override
             protected void updateItem(GuestDTO value, boolean empty){

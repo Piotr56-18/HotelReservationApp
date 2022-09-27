@@ -1,14 +1,12 @@
 package pl.application.domain.reservation;
 
 import pl.application.domain.ObjectPool;
-import pl.application.domain.guest.Gender;
 import pl.application.domain.guest.Guest;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.room.Room;
 import pl.application.domain.room.RoomService;
 import pl.application.exceptions.PersistenceToFileException;
 import pl.application.util.Properties;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -26,7 +24,7 @@ public class ReservationRepository {
 
     private final static ReservationRepository instance = new ReservationRepository();
 
-    private ReservationRepository(){};
+    private ReservationRepository(){}
 
     public static ReservationRepository getInstance(){
         return instance;

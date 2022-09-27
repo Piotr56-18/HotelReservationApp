@@ -1,9 +1,9 @@
 package pl.application.ui.gui.reservations;
 
 public class GuestSelectionItem {
-    private String firstName;
-    private String lastName;
-    private int id;
+    private final String firstName;
+    private final String lastName;
+    private final int id;
 
     public GuestSelectionItem(String firstName, String lastName, int id) {
         this.firstName = firstName;

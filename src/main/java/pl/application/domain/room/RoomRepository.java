@@ -15,7 +15,7 @@ public class RoomRepository {
     private final List<Room> rooms = new ArrayList<>();
     private final static RoomRepository instance = new RoomRepository();
 
-    private RoomRepository(){};
+    private RoomRepository(){}
 
     public static RoomRepository getInstance(){
         return instance;
@@ -26,10 +26,9 @@ public class RoomRepository {
         rooms.add(room);
         return room;
     }
-    Room addExistingRoom(int id, int number, BedType[] bedTypes) {
+    void addExistingRoom(int id, int number, BedType[] bedTypes) {
         Room room = new Room(id, number, bedTypes);
         rooms.add(room);
-        return room;
     }
 
     List<Room> getAllRooms() {

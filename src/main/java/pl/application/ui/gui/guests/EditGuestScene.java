@@ -15,8 +15,8 @@ import java.util.List;
 
 public class EditGuestScene {
 
-    private Scene mainScene;
-    private GuestService guestService = ObjectPool.getGuestService();
+    private final Scene mainScene;
+    private final GuestService guestService = ObjectPool.getGuestService();
 
     public EditGuestScene(Stage stg, TableView<GuestDTO> tableView, GuestDTO guest) {
         GridPane gridPane = new GridPane();

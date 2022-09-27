@@ -1,11 +1,11 @@
 package pl.application.domain.room.dto;
 
 public class RoomDTO {
-    private int id;
-    private int number;
-    private String beds;
-    private int bedsCount;
-    private int roomSize;
+    private final int id;
+    private final int number;
+    private final String beds;
+    private final int bedsCount;
+    private final int roomSize;
 
     public RoomDTO(int id, int number, String beds, int bedsCount, int roomSize) {
         this.id = id;
