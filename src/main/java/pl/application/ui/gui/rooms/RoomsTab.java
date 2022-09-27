@@ -1,7 +1,9 @@
-package pl.application.ui.gui;
+package pl.application.ui.gui.rooms;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,16 +16,17 @@ import java.util.List;
 public class RoomsTab {
     private Tab roomTab;
     private RoomService roomService = ObjectPool.getRoomService();
+    private Stage primaryStage;
 
     public RoomsTab(Stage primaryStage) {
         TableView<RoomDTO> tableView = getRoomDTOTableView();
-
+        this.primaryStage = primaryStage;
         Button button = new Button("Stwórz nowy");
         button.setOnAction(actionEvent -> {
             Stage stg = new Stage();
             stg.initModality(Modality.WINDOW_MODAL);
             stg.setScene(new AddNewRoomScene(stg,tableView).getMainScene());
-            stg.initOwner(primaryStage);
+            stg.initOwner(this.primaryStage);
             stg.setTitle("Dodawanie nowego pokoju");
             stg.showAndWait();
 
@@ -50,14 +53,45 @@ public class RoomsTab {
         TableColumn<RoomDTO, Integer> roomSizeColumn = new TableColumn<>("Rozmiar pokoju");
         roomSizeColumn.setCellValueFactory(new PropertyValueFactory<>("roomSize"));
 
-        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsColumn);
+        TableColumn<RoomDTO,RoomDTO>deleteColumn = new TableColumn<>("Usuń");
+        deleteColumn.setCellValueFactory(value-> new ReadOnlyObjectWrapper(value.getValue()));
+
+        deleteColumn.setCellFactory(param -> new TableCell<>(){
+            Button deleteButton = new Button("Usuń");
+            Button editButton = new Button("Edytuj");
+            HBox hBox = new HBox(deleteButton,editButton);
+
+            @Override
+            protected void updateItem(RoomDTO value, boolean empty){
+                super.updateItem(value,empty);
+                if(value==null){
+                    setGraphic(null);
+                }else{
+                    setGraphic(hBox);
+                    deleteButton.setOnAction(actionEvent -> {
+                        roomService.removeRoom(value.getId());
+                        tableView.getItems().remove(value);
+                    });
+                    editButton.setOnAction(actionEvent -> {
+                        Stage stg = new Stage();
+                        stg.initModality(Modality.WINDOW_MODAL);
+                        stg.setScene(new EditRoomScene(stg,tableView,value).getMainScene());
+                        stg.initOwner(primaryStage);
+                        stg.setTitle("Edycja pokoju");
+                        stg.showAndWait();
+                    });
+                }
+            }
+        });
+
+        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsColumn,deleteColumn);
 
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
         tableView.getItems().addAll(allAsDTO);
         return tableView;
     }
 
-    Tab getRoomTab() {
+    public Tab getRoomTab() {
         return roomTab;
     }
 }

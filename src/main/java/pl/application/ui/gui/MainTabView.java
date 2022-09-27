@@ -1,6 +1,9 @@
 package pl.application.ui.gui;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+import pl.application.ui.gui.guests.GuestsTab;
+import pl.application.ui.gui.reservations.ReservationsTab;
+import pl.application.ui.gui.rooms.RoomsTab;
 
 public class MainTabView {
     private TabPane mainTabs;

@@ -1,4 +1,4 @@
-package pl.application.ui.gui;
+package pl.application.ui.gui.reservations;
 
 public class RoomSelectionItem {
     private int number;

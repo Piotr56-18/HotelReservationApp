@@ -100,4 +100,20 @@ public class ReservationRepository {
     public List<Reservation> getAll() {
         return this.reservations;
     }
+
+    public void remove(int id) {
+        int reservationToBeRemovedIndex = -1;
+
+        for (int i = 0; i < this.reservations.size(); i++) {
+            if (this.reservations.get(i).getId() == id) {
+                reservationToBeRemovedIndex = i;
+                break;
+            }
+        }
+        if (reservationToBeRemovedIndex > -1) {
+            this.reservations.remove(reservationToBeRemovedIndex);
+        } else {
+            System.out.println("Nie ma rezerwacji o podanym indeksie");
+        }
+    }
 }

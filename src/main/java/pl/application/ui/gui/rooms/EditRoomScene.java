@@ -1,4 +1,5 @@
-package pl.application.ui.gui;
+package pl.application.ui.gui.rooms;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,12 +17,12 @@ import pl.application.util.Properties;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewRoomScene {
+public class EditRoomScene {
     private final Scene mainScene;
     private final List<ComboBox<String>> comboBoxes = new ArrayList<>();
     private final RoomService roomService = ObjectPool.getRoomService();
 
-    public AddNewRoomScene(Stage stg, TableView<RoomDTO> tableView) {
+    public EditRoomScene(Stage stg, TableView<RoomDTO> tableView, RoomDTO room) {
 
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -29,6 +30,7 @@ public class AddNewRoomScene {
 
         Label roomNumberLabel = new Label("Numer pokoju:");
         TextField roomNumberField = new TextField();
+        roomNumberField.setText(String.valueOf(room.getNumber()));
 
         roomNumberField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if(!newValue.matches("\\d*")){
@@ -52,29 +54,37 @@ public class AddNewRoomScene {
         gridPane.add(bedTypeLabel, 0, 1);
         gridPane.add(addNewBedButton, 1, 1);
 
-        VBox bedsVerticalLayout = new VBox(getComboBox());
+        int bedsCount = room.getBedsCount();
+        VBox bedsVerticalLayout = new VBox();
+        String[] split = room.getBeds().split(",");
+
+        for(int i = 0;i<bedsCount;i++){
+            ComboBox<String>combo = getComboBox();
+            combo.setValue(split[i]);
+            bedsVerticalLayout.getChildren().add(combo);
+        }
 
         addNewBedButton.setOnAction(actionEvent -> {
             bedsVerticalLayout.getChildren().add(getComboBox());
         });
 
-        Button addNewRoomButton = new Button("Dodaj nowy pokój");
-        addNewRoomButton.setOnAction(actionEvent -> {
+        Button editRoomButton = new Button("Edytuj pokój");
+        editRoomButton.setOnAction(actionEvent -> {
             int newRoomNumber = Integer.parseInt(roomNumberField.getText());
             List<String> bedTypes = new ArrayList<>();
             this.comboBoxes.forEach(comboBox -> {
                 bedTypes.add(comboBox.getValue());
             });
-            this.roomService.createNewRoom(newRoomNumber, bedTypes);
+            this.roomService.editRoom(room.getId(),newRoomNumber, bedTypes);
             tableView.getItems().clear();
             List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
             tableView.getItems().addAll(allAsDTO);
             stg.close();
         });
 
-        addNewRoomButton.setPadding(new Insets(5,5,5,5));
+        editRoomButton.setPadding(new Insets(5,5,5,5));
         gridPane.add(bedsVerticalLayout, 1, 2);
-        gridPane.add(addNewRoomButton,0,3);
+        gridPane.add(editRoomButton,0,3);
 
         this.mainScene = new Scene(gridPane, 740, 480);
         this.mainScene.getStylesheets().add(getClass().getClassLoader().getResource("hotelReservation.css").toExternalForm());

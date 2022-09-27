@@ -1,4 +1,4 @@
-package pl.application.ui.gui;
+package pl.application.ui.gui.reservations;
 
 public class GuestSelectionItem {
     private String firstName;

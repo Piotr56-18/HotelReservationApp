@@ -1,26 +1,27 @@
-package pl.application.ui.gui;
+package pl.application.ui.gui.guests;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pl.application.domain.ObjectPool;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.guest.dto.GuestDTO;
+import pl.application.ui.gui.rooms.EditRoomScene;
 
 import java.util.List;
 
 public class GuestsTab {
     private Tab guestTab;
     private GuestService guestService = ObjectPool.getGuestService();
+    private Stage primaryStage;
 
     public GuestsTab(Stage primaryStage){
         TableView<GuestDTO> tableView = getGuestDTOTableView();
-
+        this.primaryStage = primaryStage;
         Button button = new Button("Dodaj nowego gościa");
         button.setOnAction(actionEvent -> {
             Stage stg = new Stage();
@@ -52,14 +53,45 @@ public class GuestsTab {
         TableColumn<GuestDTO,String> genderColumn = new TableColumn<>("Płeć");
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
-        tableView.getColumns().addAll(firstNamesColumn,lastNamesColumn,ageColumn,genderColumn);
+        TableColumn<GuestDTO,GuestDTO>deleteColumn = new TableColumn<>("Usuń");
+        deleteColumn.setCellValueFactory(value-> new ReadOnlyObjectWrapper(value.getValue()));
+
+        deleteColumn.setCellFactory(param -> new TableCell<>(){
+            Button deleteButton = new Button("Usuń");
+            Button editButton = new Button("Edytuj");
+            HBox hBox = new HBox(deleteButton,editButton);
+
+            @Override
+            protected void updateItem(GuestDTO value, boolean empty){
+                super.updateItem(value,empty);
+                if(value==null){
+                    setGraphic(null);
+                }else{
+                    setGraphic(hBox);
+                    deleteButton.setOnAction(actionEvent -> {
+                        guestService.removeGuest(value.getId());
+                        tableView.getItems().remove(value);
+                    });
+                    editButton.setOnAction(actionEvent -> {
+                        Stage stg = new Stage();
+                        stg.initModality(Modality.WINDOW_MODAL);
+                        stg.setScene(new EditGuestScene(stg,tableView,value).getMainScene());
+                        stg.initOwner(primaryStage);
+                        stg.setTitle("Edycja gościa");
+                        stg.showAndWait();
+                    });
+                }
+            }
+        });
+
+        tableView.getColumns().addAll(firstNamesColumn,lastNamesColumn,ageColumn,genderColumn,deleteColumn);
 
         List<GuestDTO> allAsDTO = guestService.getAllAsDTO();
         tableView.getItems().addAll(allAsDTO);
         return tableView;
     }
 
-    Tab getGuestTab() {
+    public Tab getGuestTab() {
         return guestTab;
     }
 }

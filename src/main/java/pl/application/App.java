@@ -32,8 +32,8 @@ public class App extends Application {
             throw new PersistenceToFileException(Properties.DATA_DIRECTORY.toString(), "create data directory","directory");
         }
         Application.launch(args);
-        //textUI.showSystemInfo();
-        //textUI.showMainMenu();
+//        textUI.showSystemInfo();
+//        textUI.showMainMenu();
     }
     @Override
     public void start(Stage primaryStage){

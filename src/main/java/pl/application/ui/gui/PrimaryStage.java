@@ -10,7 +10,7 @@ public class PrimaryStage {
         int systemVersion = Properties.SYSTEM_VERSION;
         MainTabView mainTabView = new MainTabView(primaryStage);
 
-        Scene scene = new Scene(mainTabView.getMainTabs(),740,580);
+        Scene scene = new Scene(mainTabView.getMainTabs(),1040,780);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("hotelReservation.css").toExternalForm());
         String title = String.format("System rezerwacji hotelu: %s (%d)",hotelName,systemVersion);
         primaryStage.setTitle(title);
