@@ -1,13 +1,13 @@
 package pl.application.domain.room.dto;
 
 public class RoomDTO {
-    private final int id;
+    private final long id;
     private final int number;
     private final String beds;
     private final int bedsCount;
     private final int roomSize;
 
-    public RoomDTO(int id, int number, String beds, int bedsCount, int roomSize) {
+    public RoomDTO(long id, int number, String beds, int bedsCount, int roomSize) {
         this.id = id;
         this.number = number;
         this.beds = beds;
@@ -15,7 +15,7 @@ public class RoomDTO {
         this.roomSize=roomSize;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

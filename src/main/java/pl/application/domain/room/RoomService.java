@@ -3,9 +3,10 @@ package pl.application.domain.room;
 import pl.application.domain.ObjectPool;
 import pl.application.domain.room.dto.RoomDTO;
 import pl.application.exceptions.WrongOptionException;
-import pl.application.util.Properties;
+import pl.application.util.SystemUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RoomService {
@@ -16,15 +17,15 @@ public class RoomService {
     private RoomService(){};
 
     public Room createNewRoom(int number, List<String>  bedTypesAsString){
-        BedType[] bedTypes = getBedTypes(bedTypesAsString);
+        List<BedType> bedTypes = getBedTypes(bedTypesAsString);
         return repository.createNewRoom(number, bedTypes);
     }
     public Room createNewRoom(int number, int[] bedTypesOptions) {
-        BedType[] bedTypes = getBedTypes(bedTypesOptions);
+        List<BedType> bedTypes = getBedTypes(bedTypesOptions);
         return repository.createNewRoom(number, bedTypes);
     }
 
-    private BedType[] getBedTypes(int[] bedTypesOptions) {
+    private List<BedType> getBedTypes(int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
 
         for (int i = 0; i < bedTypesOptions.length; i++) {
@@ -42,7 +43,7 @@ public class RoomService {
             }
             bedTypes[i] = bedType;
         }
-        return bedTypes;
+        return Arrays.asList(bedTypes);
     }
 
     public List<Room> getAllRooms() {
@@ -56,41 +57,41 @@ public class RoomService {
         this.repository.readAll();
     }
 
-    public void removeRoom(int id) {
+    public void removeRoom(long id) {
         this.repository.remove(id);
     }
 
-    public  void editRoom(int id, int number, List<String>bedTypesAsString){
-        BedType[] bedTypes = getBedTypes(bedTypesAsString);
+    public  void editRoom(long id, int number, List<String>bedTypesAsString){
+        List<BedType> bedTypes = getBedTypes(bedTypesAsString);
         this.repository.edit(id,number,bedTypes);
     }
 
-    private BedType[] getBedTypes(List<String> bedTypesAsString) {
+    private List<BedType> getBedTypes(List<String> bedTypesAsString) {
         BedType[] bedTypes = new BedType[bedTypesAsString.size()];
         for (int i = 0; i < bedTypesAsString.size(); i++) {
 
             BedType bedType;
 
-            if (bedTypesAsString.get(i).equals(Properties.SINGLE_BED)) {
+            if (bedTypesAsString.get(i).equals(SystemUtils.SINGLE_BED)) {
                 bedType = BedType.SINGLE;
-            } else if (bedTypesAsString.get(i).equals(Properties.DOUBLE_BED)) {
+            } else if (bedTypesAsString.get(i).equals(SystemUtils.DOUBLE_BED)) {
                 bedType = BedType.DOUBLE;
-            } else if (bedTypesAsString.get(i).equals(Properties.KING_SIZE)) {
+            } else if (bedTypesAsString.get(i).equals(SystemUtils.KING_SIZE)) {
                 bedType = BedType.KING_SIZE;
             } else {
                 throw new WrongOptionException("Wrong option in selecting bed type");
             }
             bedTypes[i] = bedType;
         }
-        return bedTypes;
+        return Arrays.asList(bedTypes);
     }
 
     public void editRoom(int id, int number, int[] bedTypesOptions) {
-        BedType[] bedTypes = getBedTypes(bedTypesOptions);
+        List<BedType> bedTypes = getBedTypes(bedTypesOptions);
         this.repository.edit(id,number,bedTypes);
     }
 
-    public Room getRoomById(int roomId) {
+    public Room getRoomById(long roomId) {
         return this.repository.getById(roomId);
     }
     public List<RoomDTO>getAllAsDTO(){

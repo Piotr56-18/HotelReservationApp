@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import pl.application.domain.ObjectPool;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.guest.dto.GuestDTO;
-import pl.application.util.Properties;
+import pl.application.util.SystemUtils;
 import java.util.List;
 
 public class AddNewGuestScene {
@@ -61,8 +61,8 @@ public class AddNewGuestScene {
 
         Label genderLabel = new Label("Płeć:");
         ComboBox<String> genderField = new ComboBox<>();
-        genderField.getItems().addAll(Properties.MALE, Properties.FEMALE);
-        genderField.setValue(Properties.FEMALE);
+        genderField.getItems().addAll(SystemUtils.MALE, SystemUtils.FEMALE);
+        genderField.setValue(SystemUtils.FEMALE);
         gridPane.add(genderLabel, 0, 3);
         gridPane.add(genderField, 1, 3);
 
@@ -73,7 +73,7 @@ public class AddNewGuestScene {
             int newGuestAge = Integer.parseInt(ageField.getText());
             String newGuestGender = genderField.getValue();
             boolean isMale = false;
-            if(newGuestGender.equals(Properties.MALE)){
+            if(newGuestGender.equals(SystemUtils.MALE)){
                 isMale = true;
             }
             this.guestService.createNewGuest(newGuestFirstName, newGuestLastName, newGuestAge, isMale);

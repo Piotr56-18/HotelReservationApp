@@ -2,12 +2,15 @@ package pl.application.domain.room;
 
 import pl.application.domain.room.dto.RoomDTO;
 
-public class Room {
-    private final int id;
-    private final int number;
-    private final BedType[] beds;
+import java.util.ArrayList;
+import java.util.List;
 
-    Room(int id, int number, BedType[] bed) {
+public class Room {
+    private final long id;
+    private final int number;
+    private final List<BedType> beds;
+
+    Room(long id, int number, List<BedType> bed) {
         this.id = id;
         this.number = number;
         this.beds = bed;
@@ -23,25 +26,25 @@ public class Room {
         return String.format("%d Numer: %d %s", this.id, this.number, bedInfo);
     }
     String toCSV(){
-        String[] bedsAsString = getBedsAsString();
+        List<String> bedsAsString = getBedsAsString();
         String  bedTypes = String.join("#",bedsAsString);
         return String.format("%d,%d,%s%s",this.id, this.number,bedTypes,System.getProperty("line.separator"));
     }
 
-    private String[] getBedsAsString() {
-        String[] bedsAsString = new String[this.beds.length];
-        for (int i = 0; i < bedsAsString.length; i++) {
-            bedsAsString[i] = beds[i].toString();
+    private List<String> getBedsAsString() {
+        List<String>bedsAsString = new ArrayList<>();
+        for (int i = 0; i < beds.size(); i++) {
+            bedsAsString.add(this.beds.get(i).toString());
         }
         return bedsAsString;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     public RoomDTO generateDTO() {
-        String[] bedsAsString = getBedsAsString();
+        List<String> bedsAsString = getBedsAsString();
         String  bedTypes = String.join(",",bedsAsString);
 
         int roomSize = 0;
@@ -49,10 +52,14 @@ public class Room {
             roomSize+=bedType.getSize();
         }
 
-        return new RoomDTO(this.id, this.number,bedTypes, beds.length,roomSize);
+        return new RoomDTO(this.id, this.number,bedTypes, beds.size(),roomSize);
     }
 
     public int getnumber() {
         return this.number;
+    }
+
+    void addBed(BedType bedType) {
+        this.beds.add(bedType);
     }
 }

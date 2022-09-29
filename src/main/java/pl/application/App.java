@@ -9,7 +9,7 @@ import pl.application.domain.room.RoomService;
 import pl.application.exceptions.PersistenceToFileException;
 import pl.application.ui.gui.PrimaryStage;
 import pl.application.ui.text.TextUI;
-import pl.application.util.Properties;
+import pl.application.util.SystemUtils;
 
 import java.io.IOException;
 
@@ -23,13 +23,15 @@ public class App extends Application {
     public static void main(String[] args) {
 
         try {
-            Properties.createDataDirectory();
+            SystemUtils su = new SystemUtils();
+            su.createDatabaseConnection();
+            SystemUtils.createDataDirectory();
             System.out.println("Trwa wczytywanie danych...");
             guestService.readAll();
             roomService.readAll();
             reservationService.readAll();
         } catch (IOException e) {
-            throw new PersistenceToFileException(Properties.DATA_DIRECTORY.toString(), "create data directory","directory");
+            throw new PersistenceToFileException(SystemUtils.DATA_DIRECTORY.toString(), "create data directory","directory");
         }
         Application.launch(args);
 //        textUI.showSystemInfo();

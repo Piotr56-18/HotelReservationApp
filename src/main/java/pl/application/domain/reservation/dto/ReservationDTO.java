@@ -6,12 +6,12 @@ public class ReservationDTO {
     private final int id;
     private final LocalDateTime from;
     private final LocalDateTime to;
-    private final int roomId;
+    private final long roomId;
     private final int roomNumber;
     private final int guestId;
     private final String guestName;
 
-    public ReservationDTO(int id, LocalDateTime from, LocalDateTime to, int roomId, int roomNumber, int guestId, String guestName) {
+    public ReservationDTO(int id, LocalDateTime from, LocalDateTime to, long roomId, int roomNumber, int guestId, String guestName) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -33,7 +33,7 @@ public class ReservationDTO {
         return to;
     }
 
-    public int getRoomId() {
+    public long getRoomId() {
         return roomId;
     }
 

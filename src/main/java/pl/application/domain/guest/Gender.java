@@ -1,10 +1,10 @@
 package pl.application.domain.guest;
 
-import pl.application.util.Properties;
+import pl.application.util.SystemUtils;
 
 public enum Gender {
-    MALE(Properties.MALE),
-    FEMALE(Properties.FEMALE);
+    MALE(SystemUtils.MALE),
+    FEMALE(SystemUtils.FEMALE);
 
     private final String asStr;
 

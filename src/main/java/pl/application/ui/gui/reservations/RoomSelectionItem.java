@@ -2,9 +2,9 @@ package pl.application.ui.gui.reservations;
 
 public class RoomSelectionItem {
     private final int number;
-    private final int id;
+    private final long id;
 
-    public RoomSelectionItem(int number, int id) {
+    public RoomSelectionItem(int number, long id) {
         this.number = number;
         this.id = id;
     }
@@ -13,7 +13,7 @@ public class RoomSelectionItem {
         return number;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
     public String toString(){
