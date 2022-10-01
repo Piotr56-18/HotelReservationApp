@@ -1,5 +1,7 @@
 package pl.application.domain;
 
+import pl.application.domain.guest.GuestDatabaseRepository;
+import pl.application.domain.guest.GuestFileRepository;
 import pl.application.domain.guest.GuestRepository;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.reservation.ReservationRepository;
@@ -17,7 +19,8 @@ public class ObjectPool {
     }
 
     public static GuestRepository getGuestRepository() {
-        return GuestRepository.getInstance();
+       // return GuestFileRepository.getInstance();
+       return GuestDatabaseRepository.getInstance();
     }
 
     public static RoomService getRoomService() {
@@ -25,7 +28,7 @@ public class ObjectPool {
     }
 
     public static RoomRepository getRoomRepository() {
-       // return RoomFileRepository.getInstance();
+        //return RoomFileRepository.getInstance();
         return RoomDatabaseRepository.getInstance();
     }
 

@@ -1,8 +1,6 @@
 package pl.application.util;
 
-import javax.sound.midi.Soundbank;
 import java.io.IOException;
-import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,6 +57,8 @@ public class SystemUtils {
             Statement statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS ROOMS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_NUMBER INT NOT NULL UNIQUE)");
             statement.execute("CREATE TABLE IF NOT EXISTS BEDS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_ID INT NOT NULL,BED VARCHAR2(55), FOREIGN KEY (ROOM_ID) REFERENCES ROOMS(ID))");
+            statement.execute("CREATE TABLE IF NOT EXISTS GUESTS(ID INT PRIMARY KEY AUTO_INCREMENT, " +
+                    "FIRST_NAME VARCHAR2(55) NOT NULL, LAST_NAME VARCHAR2(55) NOT NULL, AGE INT NOT NULL, GENDER VARCHAR2(55) NOT NULL)");
             System.out.println("Udalo sie nawiazac polacznie z baza danych");
 
         } catch (ClassNotFoundException | SQLException e) {

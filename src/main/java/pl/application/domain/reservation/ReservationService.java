@@ -26,12 +26,12 @@ public class ReservationService {
         return instance;
     }
 
-    public Reservation createNewReservation(LocalDate from, LocalDate to, long roomId, int guestaId) throws IllegalArgumentException {
+    public Reservation createNewReservation(LocalDate from, LocalDate to, long roomId, long guestId) throws IllegalArgumentException {
 
         //TODO: handle null room
         Room room = this.roomService.getRoomById(roomId);
         //TODO: handle null guest
-        Guest guest = this.guestService.getGuestById(guestaId);
+        Guest guest = this.guestService.getGuestById(guestId);
 
         LocalDateTime fromWithTime = from.atTime(SystemUtils.HOTEL_NIGHT_START_HOUR, SystemUtils.HOTEL_NIGHT_START_MINUTE);
         LocalDateTime toWithTime = to.atTime(SystemUtils.HOTEL_NIGHT_END_HOUR, SystemUtils.HOTEL_NIGHT_END_MINUTE);
@@ -60,7 +60,7 @@ public class ReservationService {
         return result;
     }
 
-    public void removeReservation(int id) {
+    public void removeReservation(long id) {
         this.repository.remove(id);
     }
 }

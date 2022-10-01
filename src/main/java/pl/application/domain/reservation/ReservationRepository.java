@@ -36,8 +36,8 @@ public class ReservationRepository {
         return reservation;
     }
 
-    private int findNewId() {
-        int max = 0;
+    private long findNewId() {
+        long max = 0;
         for (Reservation reservation : this.reservations) {
             if (reservation.getId() > max) {
                 max = reservation.getId();
@@ -99,7 +99,7 @@ public class ReservationRepository {
         return this.reservations;
     }
 
-    public void remove(int id) {
+    public void remove(long id) {
         int reservationToBeRemovedIndex = -1;
 
         for (int i = 0; i < this.reservations.size(); i++) {

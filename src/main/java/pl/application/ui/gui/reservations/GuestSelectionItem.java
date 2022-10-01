@@ -3,9 +3,9 @@ package pl.application.ui.gui.reservations;
 public class GuestSelectionItem {
     private final String firstName;
     private final String lastName;
-    private final int id;
+    private final long id;
 
-    public GuestSelectionItem(String firstName, String lastName, int id) {
+    public GuestSelectionItem(String firstName, String lastName, long id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
@@ -19,7 +19,7 @@ public class GuestSelectionItem {
         return lastName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
     public String toString(){

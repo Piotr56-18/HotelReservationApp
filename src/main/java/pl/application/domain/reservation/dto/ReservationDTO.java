@@ -3,15 +3,15 @@ package pl.application.domain.reservation.dto;
 import java.time.LocalDateTime;
 
 public class ReservationDTO {
-    private final int id;
+    private final long id;
     private final LocalDateTime from;
     private final LocalDateTime to;
     private final long roomId;
     private final int roomNumber;
-    private final int guestId;
+    private final long guestId;
     private final String guestName;
 
-    public ReservationDTO(int id, LocalDateTime from, LocalDateTime to, long roomId, int roomNumber, int guestId, String guestName) {
+    public ReservationDTO(long id, LocalDateTime from, LocalDateTime to, long roomId, int roomNumber, long guestId, String guestName) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -21,7 +21,7 @@ public class ReservationDTO {
         this.guestName = guestName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class ReservationDTO {
         return roomNumber;
     }
 
-    public int getGuestId() {
+    public long getGuestId() {
         return guestId;
     }
 

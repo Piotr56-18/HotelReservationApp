@@ -72,7 +72,7 @@ public class AddNewReservationScene {
         btn.setOnAction(actionEvent -> {
             LocalDate from = fromDateField.getValue();
             LocalDate to = toDateField.getValue();
-            int guestId = guestField.getValue().getId();
+            long guestId = guestField.getValue().getId();
             long roomId = roomField.getValue().getId();
 
             try{
