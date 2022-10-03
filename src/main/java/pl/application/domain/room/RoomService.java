@@ -25,7 +25,7 @@ public class RoomService {
         return repository.createNewRoom(number, bedTypes);
     }
 
-    private List<BedType> getBedTypes(int[] bedTypesOptions) {
+    List<BedType> getBedTypes(int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
 
         for (int i = 0; i < bedTypesOptions.length; i++) {
@@ -66,7 +66,7 @@ public class RoomService {
         this.repository.edit(id,number,bedTypes);
     }
 
-    private List<BedType> getBedTypes(List<String> bedTypesAsString) {
+    List<BedType> getBedTypes(List<String> bedTypesAsString) {
         BedType[] bedTypes = new BedType[bedTypesAsString.size()];
         for (int i = 0; i < bedTypesAsString.size(); i++) {
 

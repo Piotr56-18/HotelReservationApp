@@ -10,10 +10,14 @@ public class Room {
     private int number;
     private List<BedType> beds;
 
-    Room(long id, int number, List<BedType> bed) {
+    public Room(long id, int number, List<BedType> bed) {
         this.id = id;
         this.number = number;
-        this.beds = bed;
+        if (bed == null) {
+            this.beds = new ArrayList<>();
+        } else {
+            this.beds = bed;
+        }
     }
 
     public String getInfo() {
@@ -25,14 +29,15 @@ public class Room {
 
         return String.format("%d Numer: %d %s", this.id, this.number, bedInfo);
     }
-    String toCSV(){
+
+    public String toCSV() {
         List<String> bedsAsString = getBedsAsString();
-        String  bedTypes = String.join("#",bedsAsString);
-        return String.format("%d,%d,%s%s",this.id, this.number,bedTypes,System.getProperty("line.separator"));
+        String bedTypes = String.join("#", bedsAsString);
+        return String.format("%d,%d,%s%s", this.id, this.number, bedTypes, System.getProperty("line.separator"));
     }
 
     private List<String> getBedsAsString() {
-        List<String>bedsAsString = new ArrayList<>();
+        List<String> bedsAsString = new ArrayList<>();
         for (int i = 0; i < beds.size(); i++) {
             bedsAsString.add(this.beds.get(i).toString());
         }
@@ -45,14 +50,14 @@ public class Room {
 
     public RoomDTO generateDTO() {
         List<String> bedsAsString = getBedsAsString();
-        String  bedTypes = String.join(",",bedsAsString);
+        String bedTypes = String.join(",", bedsAsString);
 
         int roomSize = 0;
-        for(BedType bedType:beds){
-            roomSize+=bedType.getSize();
+        for (BedType bedType : beds) {
+            roomSize += bedType.getSize();
         }
 
-        return new RoomDTO(this.id, this.number,bedTypes, beds.size(),roomSize);
+        return new RoomDTO(this.id, this.number, bedTypes, beds.size(), roomSize);
     }
 
     public int getnumber() {
@@ -69,5 +74,9 @@ public class Room {
 
     public void setBeds(List<BedType> bedTypes) {
         this.beds = bedTypes;
+    }
+
+    public List<BedType> getBeds() {
+        return this.beds;
     }
 }
