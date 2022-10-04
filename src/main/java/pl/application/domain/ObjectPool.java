@@ -11,6 +11,10 @@ import pl.application.domain.room.RoomRepository;
 import pl.application.domain.room.RoomService;
 
 public class ObjectPool {
+
+    private static final RoomService roomService = new RoomService();
+    private static final ReservationService reservationService = new ReservationService();
+
     private ObjectPool(){}
 
     public static GuestService getGuestService() {
@@ -23,7 +27,7 @@ public class ObjectPool {
     }
 
     public static RoomService getRoomService() {
-        return RoomService.getInstance();
+        return roomService;
     }
 
     public static RoomRepository getRoomRepository() {
@@ -32,7 +36,7 @@ public class ObjectPool {
     }
 
     public static ReservationService getReservationService() {
-        return ReservationService.getInstance();
+        return reservationService;
     }
 
     public static ReservationRepository getReservationRepository() {

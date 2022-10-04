@@ -7,9 +7,9 @@ public class RoomDatabaseRepository implements RoomRepository {
 
     private final List<Room> rooms = new ArrayList<>();
     private DatabaseRoomConnector connector = new JDBCRoomConnector();
-    private static RoomRepository instance = new RoomDatabaseRepository();
+    private static RoomDatabaseRepository instance = new RoomDatabaseRepository();
 
-    public static RoomRepository getInstance() {
+    public static RoomDatabaseRepository getInstance() {
         return instance;
     }
 
@@ -76,7 +76,7 @@ public class RoomDatabaseRepository implements RoomRepository {
 
     @Override
     public List<Room> getAllRooms() {
-        return this.rooms;
+        return new ArrayList<>(this.rooms);
     }
     void setConnector(DatabaseRoomConnector connector) {
         this.connector = connector;
