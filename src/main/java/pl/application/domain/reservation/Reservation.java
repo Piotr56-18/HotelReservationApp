@@ -4,14 +4,25 @@ import pl.application.domain.guest.Guest;
 import pl.application.domain.reservation.dto.ReservationDTO;
 import pl.application.domain.room.Room;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
 public class Reservation {
-    private final long id;
-    private final Room room;
-    private final Guest guest;
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @OneToOne
+    private Room room;
+    @OneToOne
+    private Guest guest;
+    @Column(name = "fromDate")
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public Reservation() {
+    }
 
     public Reservation(long id, Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         this.id = id;
@@ -20,6 +31,14 @@ public class Reservation {
         this.from = from;
         this.to = to;
     }
+
+    public Reservation(Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
+        this.room = room;
+        this.guest = guest;
+        this.from = from;
+        this.to = to;
+    }
+
     String toCSV(){
         return String.format("%s,%s,%s,%s,%s%s",
                 this.id,

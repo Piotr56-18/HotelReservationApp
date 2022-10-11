@@ -1,12 +1,13 @@
 package pl.application.domain;
 
-import pl.application.domain.guest.GuestDatabaseRepository;
+import pl.application.domain.guest.GuestJpaRepository;
 import pl.application.domain.guest.GuestRepository;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.reservation.ReservationDatabaseRepository;
+import pl.application.domain.reservation.ReservationJpaRepository;
 import pl.application.domain.reservation.ReservationRepository;
 import pl.application.domain.reservation.ReservationService;
-import pl.application.domain.room.RoomDatabaseRepository;
+import pl.application.domain.room.RoomJpaRepository;
 import pl.application.domain.room.RoomRepository;
 import pl.application.domain.room.RoomService;
 
@@ -23,7 +24,7 @@ public class ObjectPool {
 
     public static GuestRepository getGuestRepository() {
        // return GuestFileRepository.getInstance();
-       return GuestDatabaseRepository.getInstance();
+       return GuestJpaRepository.getInstance();
     }
 
     public static RoomService getRoomService() {
@@ -32,7 +33,7 @@ public class ObjectPool {
 
     public static RoomRepository getRoomRepository() {
         //return RoomFileRepository.getInstance();
-        return RoomDatabaseRepository.getInstance();
+        return RoomJpaRepository.getInstance();
     }
 
     public static ReservationService getReservationService() {
@@ -40,7 +41,7 @@ public class ObjectPool {
     }
 
     public static ReservationRepository getReservationRepository() {
-        return ReservationDatabaseRepository.getInstance();
+        return ReservationJpaRepository.getInstance();
        // return ReservationFileRepository.getInstance();
     }
 }

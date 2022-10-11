@@ -1,7 +1,5 @@
 package pl.application.domain.guest;
 
-import pl.application.domain.room.BedType;
-import pl.application.domain.room.Room;
 import pl.application.util.SystemUtils;
 
 import java.sql.ResultSet;
@@ -17,6 +15,8 @@ public class GuestDatabaseRepository implements GuestRepository{
     public static GuestRepository getInstance() {
         return instance;
     }
+
+
 
 
     @Override

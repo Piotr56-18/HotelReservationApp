@@ -2,14 +2,23 @@ package pl.application.domain.room;
 
 import pl.application.domain.room.dto.RoomDTO;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Room {
-    private final long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private int number;
+    @ElementCollection(targetClass = BedType.class)
     private List<BedType> beds;
+
+    public Room() {
+    }
 
     public Room(long id, int number, List<BedType> bed) {
         this.id = id;
@@ -19,6 +28,11 @@ public class Room {
         } else {
             this.beds = bed;
         }
+    }
+
+    public Room(int number, List<BedType> beds) {
+        this.number = number;
+        this.beds = beds;
     }
 
     public String getInfo() {
@@ -93,4 +107,5 @@ public class Room {
     public int hashCode() {
         return Objects.hash(id, number);
     }
+
 }

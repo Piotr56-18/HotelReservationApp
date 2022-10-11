@@ -3,6 +3,9 @@ package pl.application;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.application.domain.ObjectPool;
+import pl.application.domain.guest.Gender;
+import pl.application.domain.guest.Guest;
+import pl.application.domain.guest.GuestJpaRepository;
 import pl.application.domain.guest.GuestService;
 import pl.application.domain.reservation.ReservationService;
 import pl.application.domain.room.RoomService;
@@ -12,6 +15,7 @@ import pl.application.ui.text.TextUI;
 import pl.application.util.SystemUtils;
 
 import java.io.IOException;
+import java.util.List;
 
 public class App extends Application {
 
@@ -24,7 +28,7 @@ public class App extends Application {
 
         try {
             SystemUtils su = new SystemUtils();
-            su.createDatabaseConnection();
+            //su.createDatabaseConnection();
             SystemUtils.createDataDirectory();
             System.out.println("Trwa wczytywanie danych...");
             guestService.readAll();
